@@ -25,12 +25,17 @@ private:
     //List of Friends
     QStringList m_friendList;
 
+    //File that contain the relation
+    //between friends
+    QFile *m_friendsRelationListFile;
+
 public:
     DataTreatment();
     DataTreatment(QString myFileName, QString myProfileName, int num);
     ~DataTreatment();
     void readData();
     void createMatrix();
+    void setFriendRelationListFile();
 };
 
 #endif // DATATREATMENT_H
