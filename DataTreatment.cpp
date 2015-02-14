@@ -86,21 +86,29 @@ void DataTreatment::createMatrix(){
         personName2 = line.section('"', 3, 3);
 
         //Get the index of the current person
-        int currentProfile = m_friendList.indexOf(personName1);
+        int currentProfile = m_friendList.indexOf(personName1) + 1;
+
+        //Fill column 0 and 1
+        for(int i = 1; i <= m_friendList.length(); i++) {
+            tempMatrix[i - 1][0] = currentProfile;
+            tempMatrix[i - 1][1] = i;
+            tempMatrix[i - 1][2] = 0;
+        }//End loop for
 
         //Every user is related to himself
-        tempMatrix[currentProfile][2] = 1;
+        tempMatrix[currentProfile - 1][2] = 1;
+
+        //Person1 is friend of person2
+        tempMatrix[m_friendList.indexOf(personName2)][2] = 1;
+
+        //The current person matrix
+        //Does not require to be
+        //Created
+        matrixToBeMade[m_friendList.indexOf(personName1)] = false;
 
         //Output file
         QFile currentUserMatrix("Matrix " + currentProfile);
         currentUserMatrix.open(QIODevice::WriteOnly);
-
-        //Fill column 1
-        for(int i = 1; i <= m_friendList.length(); i++) {
-            tempMatrix[i - 1][0] = currentProfile;
-            tempMatrix[i - 1][1] = i;
-        }//End loop for
-
 
         //Writing the adjacency matrix
         //to a file
