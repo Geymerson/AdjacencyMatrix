@@ -101,7 +101,6 @@ void DataTreatment::createMatrix(){
             tempMatrix[i - 1][1] = i;
         }//End loop for
 
-
         //Writing the adjacency matrix
         //to a file
         QDataStream outputMatrix(&currentUserMatrix);

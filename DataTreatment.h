@@ -1,10 +1,10 @@
 #ifndef DATATREATMENT_H
 #define DATATREATMENT_H
 
-#include <QString>
 #include <QFile>
 #include <QDebug>
-#include <QList>
+#include <QString>
+#include <QDataStream>
 #include <QStringList>
 
 class DataTreatment
