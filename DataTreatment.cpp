@@ -48,9 +48,6 @@ void DataTreatment::readData() {
         //Extract the second name in the string
         personName2 = line.section('"', 3, 3);
 
-//        qDebug().noquote() << personName1 << ", "
-//                           << personName2;
-
         //Insert the friend's name in the friend
         //list
         personName1 != m_myProfileName ?
@@ -58,6 +55,9 @@ void DataTreatment::readData() {
                     m_friendList.append(personName2);
 
         lineCount++;
+
+        //Copy the related friends to
+        //the friends relation file
         if(lineCount == m_numberOfFriends) {
             while(!dataEntry.atEnd()) {
                 QByteArray getData = dataEntry.read(8000);
@@ -70,13 +70,29 @@ void DataTreatment::readData() {
 
 //Method to generate the matrix
 void DataTreatment::createMatrix(){
+    //Matrix's output  file
+    QFile currentPersonMatrix("Matrix.txt");
+    currentPersonMatrix.open(QIODevice::WriteOnly);
+    if(!currentPersonMatrix.isOpen()) {
+        qDebug().noquote() << "The file has not been opened";
+    }
+
     //Indicator of matrix that need to me made
-    bool matrixToBeMade[1000] = {true};
+    bool matrixToBeMade[m_numberOfFriends];
+
+    //Set indicator to true
+    for(int i = 0; i < m_numberOfFriends; i++) {
+        matrixToBeMade[i] = true;
+    }
 
     //Matrix Representation that will
     //be written to a file
     QByteArray matrixRepresentation;
+
     m_friendsRelationListFile->open(QIODevice::ReadOnly);
+    if(!m_friendsRelationListFile->isOpen()) {
+        qDebug().noquote() << "The file has not been opened";
+    }
 
     while(!m_friendsRelationListFile->atEnd()) {
         QString line = m_friendsRelationListFile->readLine(1024);
@@ -112,15 +128,11 @@ void DataTreatment::createMatrix(){
         //Created
         matrixToBeMade[m_friendList.indexOf(personName1)] = false;
 
-        //Matrix's output  file
-        QFile currentUserMatrix("Matrix " + currentProfile);
-        currentUserMatrix.open(QIODevice::WriteOnly);
-
         //Writing the adjacency matrix
         //to a file
         for(int i = 0; i < m_numberOfFriends; i++) {
             for(int j = 0; j < 3; j++) {
-                matrixRepresentation.append(tempMatrix[i][j]);
+                matrixRepresentation.append(QString::number(tempMatrix[i][j]));
                 if(j == 2) {
                     matrixRepresentation.append('\n');
                 }
@@ -129,20 +141,40 @@ void DataTreatment::createMatrix(){
                 }
             }
         }
-        currentUserMatrix.write(matrixRepresentation);
+        currentPersonMatrix.write(matrixRepresentation);
+        currentPersonMatrix.write("\n");
         matrixRepresentation.clear();
-        currentUserMatrix.close();
     }//End loop while
     
-    for(int i = 0; i < 1000; i++) {
-        if(matrixToBeMade[i]) {
-            int tempMatrix[m_numberOfFriends][3];
-            for(int j = 1; j <= m_numberOfFriends; i++) {
-                tempMatrix[j - 1][0] = i + 1;
-                tempMatrix[j - 1][1] = j;
-                tempMatrix[j - 1][2] = 0;
+    for(int currentPerson = 1; currentPerson <= m_numberOfFriends; currentPerson++) {
+        if(matrixToBeMade[currentPerson - 1]) {
+            for(int relatedPerson = 1; relatedPerson <= m_numberOfFriends; relatedPerson++) {
+                for(int k = 1; k <= 3; k++) {
+                    if(k == 1) {
+                        matrixRepresentation.append(QString::number(currentPerson));
+                        matrixRepresentation.append(' ');
+                    }
+                    else if(k == 2) {
+                        matrixRepresentation.append(QString::number(relatedPerson));
+                        matrixRepresentation.append(' ');
+                    }
+                    else if(k == 3) {
+                        if(currentPerson == relatedPerson) {
+                            matrixRepresentation.append('1');
+                            matrixRepresentation.append('\n');
+                        }
+                        else {
+                            matrixRepresentation.append('0');
+                            matrixRepresentation.append('\n');
+                        }
+                    }
+                }//End loop for
             }//End loop for
-        }
-    }
+            currentPersonMatrix.write(matrixRepresentation);
+            currentPersonMatrix.write("\n");
+            matrixRepresentation.clear();
+            currentPersonMatrix.close();
+        }//End condition if
+    }//End loop for
     m_friendsRelationListFile->close();
 }//End method createMatrix

@@ -4,7 +4,7 @@
 #include <QFile>
 #include <QDebug>
 #include <QString>
-#include <QDataStream>
+#include <QByteArray>
 #include <QStringList>
 
 class DataTreatment
@@ -35,7 +35,6 @@ public:
     ~DataTreatment();
     void readData();
     void createMatrix();
-    void setFriendRelationListFile();
 };
 
 #endif // DATATREATMENT_H
