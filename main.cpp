@@ -1,13 +1,10 @@
-#include <QCoreApplication>
 #include "DataTreatment.h"
 
-int main(int argc, char *argv[])
+int main()
 {
-    //QCoreApplication a(argc, argv);
-    DataTreatment sample("result_give_me_my _data.txt", "Marcel Augusto", 3);
-    sample.createMatrix();
-    //sample.readData();
-    //sample.createMatrix();
+    //Nome do arquivo de entrada, nome do dono do perfil, quantidade de amigos
+    DataTreatment sample("result_give_me_my _data.txt", "Marcel Augusto" , 82);
+    sample.setRelations();
+    sample.toMatrix();
     return 0;
-    //return a.exec();
 }

@@ -16,7 +16,9 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    DataTreatment.cpp
+    DataTreatment.cpp \
+    Person.cpp
 
 HEADERS += \
-    DataTreatment.h
+    DataTreatment.h \
+    Person.h
