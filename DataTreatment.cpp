@@ -194,7 +194,7 @@ void DataTreatment::friendList() {
     }
     QByteArray toFile;
     for(int i = 0; i < m_numberOfFriends; i++) {
-        toFile.append(QString::number(m_peopleList[i].personalID()) + " - ");
+        toFile.append(QString::number(m_peopleList[i].personalID() + 1) + " - ");
         toFile.append(m_peopleList[i].name());
         toFile.append('\n');
     }
