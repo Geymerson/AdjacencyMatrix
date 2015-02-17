@@ -47,7 +47,7 @@ public:
     void readData();
 
     //Get the friendship
-    //between the user's friends
+    //between the profile owner's friends
     void setRelations();
 
     //Write all the friendship matrices
