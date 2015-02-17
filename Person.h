@@ -11,7 +11,7 @@ private:
     QString m_name;
 
     //Array representing person's friends
-    int m_isFriendWith[1000] = {0};
+    int m_isFriendWith[5000] = {0};
 
     //Person's ID
     int m_personalID;
