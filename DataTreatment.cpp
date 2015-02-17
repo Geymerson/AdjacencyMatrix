@@ -183,3 +183,21 @@ void DataTreatment::toMatrix() {
     }//End loop currentPerson
     matrixFile.close();
 }//End method toMatrix
+
+void DataTreatment::friendList() {
+    QFile friendList("FriendList.txt");
+    friendList.open(QIODevice::WriteOnly);
+    if(!friendList.isOpen()) {
+        qDebug().noquote() << friendList.fileName()
+                           << "file has not been opened";
+
+    }
+    QByteArray toFile;
+    for(int i = 0; i < m_numberOfFriends; i++) {
+        toFile.append(QString::number(m_peopleList[i].personalID()) + " - ");
+        toFile.append(m_peopleList[i].name());
+        toFile.append('\n');
+    }
+    friendList.write(toFile);
+    friendList.write("\n");
+}

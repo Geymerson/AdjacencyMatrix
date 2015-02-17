@@ -6,5 +6,6 @@ int main()
     DataTreatment sample("result_give_me_my _data.txt", "Marcel Augusto" , 82);
     sample.setRelations();
     sample.toMatrix();
+    sample.friendList();
     return 0;
 }

@@ -53,6 +53,9 @@ public:
     //Write all the friendship matrices
     //to a .txt file
     void toMatrix();
+
+    //Write friend's names to a file
+    void friendList();
 };
 
 #endif // DATATREATMENT_H
