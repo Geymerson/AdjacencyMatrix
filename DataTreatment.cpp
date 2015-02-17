@@ -119,13 +119,11 @@ void DataTreatment::setRelations() {
             if(personName1 == m_peopleList[i].name()
                     && !m_peopleList[i].isVerified()) {
                 unknownPerson1 = m_peopleList[i].personalID();
-//                qDebug().noquote() << i;
             }
 
             //Person2 index
             if(personName2 == m_peopleList[i].name()) {
                 unknownPerson2 = m_peopleList[i].personalID();
-//                qDebug().noquote() << i;
             }//End condition if
         }//End loop for
 
@@ -148,14 +146,17 @@ void DataTreatment::toMatrix() {
     QByteArray matrixRepresentation;
 
     while(currentPerson <= m_numberOfFriends) {
-        for(int relatedPerson = 1; relatedPerson <= m_numberOfFriends; relatedPerson++) {
+        for(int relatedPerson = 1; relatedPerson <= m_numberOfFriends;
+            relatedPerson++) {
             for(int column = 1; column <= 3; column++) {
                 if(column == 1) {
-                    matrixRepresentation.append(QString::number(currentPerson));
+                    matrixRepresentation
+                            .append(QString::number(currentPerson));
                     matrixRepresentation.append(' ');
                 }
                 else if(column == 2) {
-                    matrixRepresentation.append(QString::number(relatedPerson));
+                    matrixRepresentation
+                            .append(QString::number(relatedPerson));
                     matrixRepresentation.append(' ');
                 }
                 else if(column == 3) {
@@ -163,7 +164,8 @@ void DataTreatment::toMatrix() {
                         matrixRepresentation.append('1');
                         matrixRepresentation.append("\n");
                     }
-                    else if(m_peopleList[currentPerson - 1].isFriendWith(relatedPerson - 1)) {
+                    else if(m_peopleList[currentPerson - 1]
+                            .isFriendWith(relatedPerson - 1)) {
                         matrixRepresentation.append('1');
                         matrixRepresentation.append("\n");
                     }

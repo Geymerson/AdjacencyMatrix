@@ -26,7 +26,7 @@ private:
     //and their respective friends
     Person *m_peopleList;
 
-    //File that contain the relation
+    //File that contains the relation
     //between friends
     QFile *m_friendsRelationListFile;
 
@@ -35,7 +35,9 @@ public:
     DataTreatment();
 
     //Class 3 arguments constructor
-    DataTreatment(QString myFileName, QString myProfileName, int num);
+    DataTreatment(QString myFileName,
+                  QString myProfileName,
+                  int num);
 
     //Class empty destructor
     ~DataTreatment();
@@ -48,7 +50,7 @@ public:
     //between the user's friends
     void setRelations();
 
-    //Write all the friendship matrix
+    //Write all the friendship matrices
     //to a .txt file
     void toMatrix();
 };
