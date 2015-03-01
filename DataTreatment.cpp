@@ -199,5 +199,5 @@ void DataTreatment::friendList() {
         toFile.append('\n');
     }
     friendList.write(toFile);
-    friendList.write("\n");
+    friendList.close();
 }
